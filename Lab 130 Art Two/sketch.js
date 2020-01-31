@@ -1,5 +1,5 @@
 //  Joe Untrecht
-// 	1/28
+// 	1/30
 //  This is a comment
 //  The setup function function is called once when your program begins
 var Boids=[];
@@ -8,26 +8,25 @@ function setup() {
   // put setup code here
   var cnv = createCanvas(800, 800);
   cnv.position((windowWidth-width)/2, 30);
-  background(255, 255, 255);
+  background(0, 0, 0);
   fill(200, 30, 150);
   //loads boids
-  loadBoids(100);
+  loadBoids(4);
 }
 
 function draw() {
-  background(255,255,255);
   //runs Boids
   runBoids();
 }
 
 function loadBoids(n){
-  for(var i=0; i<n; i++){
-    Boids[i]= new Boid(random(width), random(height),random(-8,8), random(-8,8));
-  }
+  MiddleBoid= new Boid(width/2,height/2,random(-100,100),random(-100,100),0);
+  OuterBoid= new Boid(width/2,50,random(-100,100),random(-100,100),1);
+  OuterBoid2= new Boid(width/2,50,random(-100,100),random(-100,100),1);
 }
 
 function runBoids(){
-  for(var i=0; i<Boids.length; i++){
-    Boids[i].run();
-  }
+  MiddleBoid.run();
+  OuterBoid.run();
+  OuterBoid2.run();
 }

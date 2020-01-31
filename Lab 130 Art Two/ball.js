@@ -1,12 +1,13 @@
 //Joe Untrecht
-//1/28
+//1/30
 var distance;
-var shapes=[];
 
 class Boid{
-  constructor(x,y,dx,dy){
+  constructor(x,y,dx,dy,id){
     this.loc=createVector(x,y);
     this.vel=createVector(dx,dy);
+    this.id=id;
+    this.w=10;
   }
   run(){
     //main function
@@ -32,18 +33,24 @@ class Boid{
 
   update(){
     //movement
-    this.loc.x= this.loc.x + this.vel.x;
-    this.loc.y = this.loc.y + this.vel.y;
+    this.clr=color(random(255),random(255),random(255));
+    this.loc.x= this.loc.x+this.vel.x;
+    this.loc.y=this.loc.y+this.vel.y;
+    stroke(this.clr);
+    strokeWeight(10);
+    distance=MiddleBoid.loc.dist(OuterBoid.loc);
+    if(distance<200){
+      line(MiddleBoid.loc.x,MiddleBoid.loc.y,OuterBoid.loc.x,OuterBoid.loc.y+random(-50,50));
+    }
+    distance=MiddleBoid.loc.dist(OuterBoid2.loc);
+    if(distance<200){
+      line(MiddleBoid.loc.x,MiddleBoid.loc.y,OuterBoid2.loc.x,OuterBoid2.loc.y+random(-50,50));
+    }
   }
 
   render(){
-    //draws lines
-    shapes[0]=ellipse(this.loc.x+20,this.loc.y+20,10,10);
-    shapes[1]=ellipse(this.loc.x-20,this.loc.y+20,10,10);
-    shapes[2]=ellipse(this.loc.x-20,this.loc.y-20,10,10);
-    shapes[3]=ellipse(this.loc.x+20,this.loc.y-20,10,10);
-    for (var i=0; i<4;i++){
-      shapes[i]= ellipse(this.loc.x,this.loc.y,10,10);
-    }
+    //draws circles
+    fill(this.clr);
+    //ellipse(this.loc.x,this.loc.y,this.w,this.w);
   }
 }//end Boid class
